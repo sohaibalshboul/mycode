@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <style>
+            body {
+                background-image: url(https://images4.alphacoders.com/692/thumb-1920-692043.jpg);
+            }
+            #title {
+                color: rgba(253, 252, 252, 0.699);
+                text-align: center;
+                margin: 50px 0;
+            }
+            #survey-form {
+                width: 50%;
+                background-color: rgba(253, 252, 252, 0.699);
+                color: rgb(3, 3, 3);
+                border-radius: 1em;
+                margin: auto;
+                padding: 15px 30px;
+            }
+            #submit {
+                background-image: linear-gradient(to right, #EA7773, #F5BCBA);
+            }
+            .input,
+            select,
+            textarea {
+                width: 100%;
+                margin: 0 auto 10px;
+                height: 30px;
+                border-radius: 0.4em;
+            }
+            label {
+                padding: 12px 12px 12px 0;
+                display: inline-block;
+            }
+            .col-25 {
+                float: left;
+                width: 25%;
+                margin-top: 6px;
+            }
+            .col-75 {
+                float: right;
+                width: 75%;
+                margin-top: 6px;
+            }
+            .row::after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+        </style>
+    </head>
+
+    <body>
+        <header id="title">
+            <h1>START STRONG WITH SHBOUL GYM</h1>
+            <p id="description">
+                Welcome to SHBOUL GYM .. Register Now
+            </p>
+        </header>
+        <form id="survey-form">
+            <div class="row">
+                <div class="col-25">
+                    <label class="input-label">Name</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" id="name" placeholder="Enter your name" required class="input">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label class="input-label">Email</label>
+                </div>
+                <div class="col-75">
+                    <input class="input" type="email" id="email" placeholder="Enter your email" required
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label class="input-label">Age (optional)</label>
+                </div>
+                <div class="col-75">
+                    <input class="input" type="number" id="number" placeholder="Age" pattern="0-9" min="0" max="20">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label class="input-label">Select City</label>
+                </div>
+                <div class="col-75">
+                    <select class="input" id="dropdown">
+                        <option selected disabled>Select City ...</option>
+                        <option>Amman</option>
+                        <option>Irbid</option>
+                        <option>Maan</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label class="input-label">Our branches</label>
+                </div>
+                <div class="col-75">
+                    <label class="input-radio"><input type="radio" name="radio" id="def" value="definitely" checked> Shafa
+                        badran</label>
+                    <label class="input-radio"><input type="radio" name="radio" value="maybe" id="maybe"> Tlaa
+                        Al-Ali</label>
+                    <label class="input-radio"><input type="radio" name="radio" value="not-sure" id="notsure">
+                        Luaibdeh</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label class="input-label">Classes</label>
+                </div>
+                <div class="col-75">
+                    <label class="input-radio"><input type="checkbox" name="radio" id="" value="definitely" checked>
+                        BODYPUMP</label>
+                    <label class="input-radio"><input type="checkbox" name="radio" value="maybe" id=""> BODYCOMBAT</label>
+                    <label class="input-radio"><input type="checkbox" name="radio" value="not-sure" id="">
+                        BODYATTACK</label>
+                </div>
+            </div>
+            <div class="row">
+                <textarea class="input" id="comments" name="comment" placeholder="Enter your comment here"></textarea>
+            </div>
+            <div class="row">
+                <input class="input" type="submit" name="submit" id="submit">
+            </div>
+        </form>
+    </body>
+</html>
