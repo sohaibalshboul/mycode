@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Documentation</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        #main {
+            display: grid;
+            grid-template-columns: 350px auto;
+            grid-template-areas:
+                "navbar content";
+        }
+        #navbar {
+            position: fixed;
+            width: 350px;
+            height: 99%;
+            background-color: #2F363F;
+            grid-area: navbar;
+            padding-bottom: 6px;
+        }
+
+        #main-doc {
+            grid-area: content;
+        }
+        .main-section{
+            padding: 10px 20px;
+            color: rgb(3, 3, 3);
+        }
+        .main-section>p{
+            margin: 10px 20px;
+        }
+
+        @media screen and (max-width: 1000px) {
+            #main {
+                grid-template-areas:
+                    "navbar navbar"
+                    "content content";
+            }
+            #navbar {
+                width: 100%;
+                height: 200px;
+                position: relative;
+                padding-bottom: 50px;
+            }
+        }
+        #navbar>ul{
+            overflow-y: scroll;
+            height: 90%;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .nav-link{
+            border-top-style: solid;
+            text-decoration: none;
+            display: block;
+            color: rgb(253, 250, 250);
+            border-color: #586776;
+            padding: 10px 20px;
+        }
+            .nav-link:hover{
+                background-color: #F4C724;
+                color: #2C3335;
+            }
+            #header{
+                background-color: #F4C724;
+                text-align: center;
+                padding: 10px 0;
+                font-size: 40px;
+            }
+            #code{
+                background-color: darkgray;
+                padding: 10px;
+                border-radius: 0.2em;
+            }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <main id="main-doc">
+            <section id="introduction" class="main-section">
+                <header><h4>Introduction</h4></header>
+                <p>JavaScript is a cross-platform, object-oriented scripting language. It is a small and lightweight language. Inside a host environment (for example, a web browser), JavaScript can be connected to the objects of its environment to provide programmatic control over them.</p>
+                <p>JavaScript contains a standard library of objects, such as Array, Date, and Math, and a core set of language elements such as operators, control structures, and statements. Core JavaScript can be extended for a variety of purposes by supplementing it with additional objects; for example:</p>
+            </section>
+            <section id="What_you_should_already_know" class="main-section">
+                <header><h4>What you should already know</h4></header>
+                <p>This guide assumes you have the following basic background:</p>
+                <ul>
+                    <li>A general understanding of the Internet and the World Wide Web (WWW).</li>
+                    <li>Good working knowledge of HyperText Markup Language (HTML).</li>
+                    <li>Some programming experience. If you are new to programming, try one of the tutorials linked on the main page about JavaScript.</li>
+                </ul>
+            </section>
+            <section id="JavaScript_and_Java" class="main-section">
+                <header><h4>JavaScript and Java</h4></header>
+                <p>JavaScript and Java are similar in some ways but fundamentally different in some others. The JavaScript language resembles Java but does not have Java's static typing and strong type checking. JavaScript follows most Java expression syntax, naming conventions and basic control-flow constructs which was the reason why it was renamed from LiveScript to JavaScript.</p>
+                <p>In contrast to Java's compile-time system of classes built by declarations, JavaScript supports a runtime system based on a small number of data types representing numeric, Boolean, and string values. JavaScript has a prototype-based object model instead of the more common class-based object model. The prototype-based model provides dynamic inheritance; that is, what is inherited can vary for individual objects. JavaScript also supports functions without any special declarative requirements. Functions can be properties of objects, executing as loosely typed methods.</p>
+                <p>JavaScript is a very free-form language compared to Java. You do not have to declare all variables, classes, and methods. You do not have to be concerned with whether methods are public, private, or protected, and you do not have to implement interfaces. Variables, parameters, and function return types are not explicitly typed.</p>
+            </section>
+            <section id="Hello_world" class="main-section">
+                <header><h4>Hello world</h4></header>
+                <p>To get started with writing JavaScript, open the Scratchpad and write your first "Hello world" JavaScript code:</p>
+                <p id="code">
+                <code>
+                    function greetMe(yourName) { alert("Hello " + yourName); }<br/>
+                    greetMe("World");
+                </code>
+                </p>
+            </section>
+            <section id="Global_variables" class="main-section">
+                <header><h4>Global variables</h4></header>
+                <p>Global variables are in fact properties of the global object. In web pages the global object is window, so you can set and access global variables using the window.variable syntax.</p>
+                <p>Consequently, you can access global variables declared in one window or frame from another window or frame by specifying the window or frame name. For example, if a variable called phoneNumber is declared in a document, you can refer to this variable from an iframe as parent.phoneNumber.</p>
+            </section>
+        </main>
+        <nav id="navbar">
+            <header id="header">JS Documentation</header>
+            <ul>
+                <li><a href="#introduction" class="nav-link">Introduction</a></li>
+                <li><a href="#What_you_should_already_know" class="nav-link">What you should already know</a></li>
+                <li><a href="#JavaScript_and_Java" class="nav-link">JavaScript and Java</a></li>
+                <li><a href="#Hello_world" class="nav-link">Hello world</a></li>
+                <li><a href="#Global_variables" class="nav-link">Global variables</a></li>
+            </ul>
+        </nav>
+    </div>
+</body>
+
+</html>
