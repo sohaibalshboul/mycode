@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad Dashboard - Sohaib GYM</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .dashboard-container {
+            padding: 40px;
+        }
+
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .controls-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .controls-row {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .filter-select {
+            padding: 10px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 1rem;
+            min-width: 150px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+        }
+
+        .btn-success {
+            background: #28a745;
+        }
+
+        .btn-warning {
+            background: #ffc107;
+            color: #212529;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+        }
+
+        .ads-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .ad-card {
+            border: 1px solid #e1e5e9;
+            border-radius: 10px;
+            overflow: hidden;
+            background: white;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .ad-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .ad-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .ad-content {
+            padding: 20px;
+        }
+
+        .ad-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .ad-category {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+
+        .ad-description {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .ad-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .ad-status {
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .status-active {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-expired {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .ad-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .ad-actions button {
+            flex: 1;
+            padding: 8px;
+            font-size: 0.9rem;
+        }
+
+        .no-ads {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .no-ads h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e1e5e9;
+        }
+
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        @media (max-width: 768px) {
+            .controls-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .ads-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .dashboard-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Ad Dashboard</h1>
+            <p>Manage your advertisements and track performance</p>
+        </div>
+
+        <div class="dashboard-container">
+            <!-- Statistics Section -->
+            <div class="stats-section">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalAds">0</div>
+                    <div class="stat-label">Total Ads</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="activeAds">0</div>
+                    <div class="stat-label">Active Ads</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="pendingAds">0</div>
+                    <div class="stat-label">Pending Review</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="expiredAds">0</div>
+                    <div class="stat-label">Expired Ads</div>
+                </div>
+            </div>
+
+            <!-- Controls Section -->
+            <div class="controls-section">
+                <div class="controls-row">
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="Search ads by title or description...">
+                    </div>
+                    <select class="filter-select" id="categoryFilter">
+                        <option value="">All Categories</option>
+                        <option value="fitness">Fitness & Health</option>
+                        <option value="sports">Sports & Recreation</option>
+                        <option value="wellness">Wellness & Spa</option>
+                        <option value="nutrition">Nutrition & Supplements</option>
+                        <option value="equipment">Equipment & Gear</option>
+                    </select>
+                    <select class="filter-select" id="statusFilter">
+                        <option value="">All Status</option>
+                        <option value="active">Active</option>
+                        <option value="pending">Pending</option>
+                        <option value="expired">Expired</option>
+                    </select>
+                    <button class="btn" onclick="createNewAd()">Create New Ad</button>
+                </div>
+            </div>
+
+            <!-- Ads Grid -->
+            <div class="ads-grid" id="adsGrid">
+                <!-- Ad cards will be dynamically generated here -->
+            </div>
+
+            <!-- No Ads Message -->
+            <div class="no-ads" id="noAdsMessage" style="display: none;">
+                <h3>No ads found</h3>
+                <p>You haven't created any ads yet. Start by creating your first advertisement!</p>
+                <button class="btn" onclick="createNewAd()">Create Your First Ad</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Ad Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Ad</h2>
+                <span class="close" onclick="closeEditModal()">&times;</span>
+            </div>
+            <div id="editForm">
+                <!-- Edit form will be dynamically generated here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample ad data (in a real application, this would come from a database)
+        let ads = [
+            {
+                id: 1,
+                title: "Personal Training Sessions",
+                description: "Professional personal training sessions tailored to your fitness goals. Experienced trainer with 5+ years of experience.",
+                category: "fitness",
+                subcategory: "Personal Training",
+                status: "active",
+                price: 50,
+                duration: 30,
+                contactName: "John Smith",
+                contactPhone: "+1234567890",
+                contactEmail: "john@example.com",
+                createdAt: "2024-01-15",
+                expiresAt: "2024-02-15",
+                image: null,
+                specificDetails: {
+                    experience: 5,
+                    certifications: "NASM, ACE",
+                    specialties: "Weight Loss, Muscle Building",
+                    sessionLength: 60
+                }
+            },
+            {
+                id: 2,
+                title: "Protein Supplements Sale",
+                description: "High-quality protein supplements for muscle building and recovery. Various flavors available.",
+                category: "nutrition",
+                subcategory: "Protein Supplements",
+                status: "pending",
+                price: 25,
+                duration: 14,
+                contactName: "Sarah Johnson",
+                contactPhone: "+1234567891",
+                contactEmail: "sarah@example.com",
+                createdAt: "2024-01-20",
+                expiresAt: "2024-02-03",
+                image: null,
+                specificDetails: {
+                    proteinType: "Whey",
+                    servingSize: 30,
+                    flavors: "Chocolate, Vanilla, Strawberry"
+                }
+            },
+            {
+                id: 3,
+                title: "Cardio Equipment - Treadmill",
+                description: "Professional grade treadmill in excellent condition. Perfect for home gym setup.",
+                category: "equipment",
+                subcategory: "Cardio Equipment",
+                status: "active",
+                price: 800,
+                duration: 60,
+                contactName: "Mike Wilson",
+                contactPhone: "+1234567892",
+                contactEmail: "mike@example.com",
+                createdAt: "2024-01-10",
+                expiresAt: "2024-03-10",
+                image: null,
+                specificDetails: {
+                    equipmentType: "Treadmill",
+                    brand: "Life Fitness",
+                    condition: "Like New"
+                }
+            }
+        ];
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            updateStats();
+            renderAds();
+            
+            // Set up search and filter handlers
+            document.getElementById('searchInput').addEventListener('input', filterAds);
+            document.getElementById('categoryFilter').addEventListener('change', filterAds);
+            document.getElementById('statusFilter').addEventListener('change', filterAds);
+        });
+
+        function updateStats() {
+            const total = ads.length;
+            const active = ads.filter(ad => ad.status === 'active').length;
+            const pending = ads.filter(ad => ad.status === 'pending').length;
+            const expired = ads.filter(ad => ad.status === 'expired').length;
+
+            document.getElementById('totalAds').textContent = total;
+            document.getElementById('activeAds').textContent = active;
+            document.getElementById('pendingAds').textContent = pending;
+            document.getElementById('expiredAds').textContent = expired;
+        }
+
+        function renderAds(filteredAds = ads) {
+            const adsGrid = document.getElementById('adsGrid');
+            const noAdsMessage = document.getElementById('noAdsMessage');
+
+            if (filteredAds.length === 0) {
+                adsGrid.style.display = 'none';
+                noAdsMessage.style.display = 'block';
+                return;
+            }
+
+            adsGrid.style.display = 'grid';
+            noAdsMessage.style.display = 'none';
+
+            adsGrid.innerHTML = filteredAds.map(ad => `
+                <div class="ad-card">
+                    <div class="ad-image">
+                        ${ad.image ? `<img src="${ad.image}" alt="${ad.title}" style="width: 100%; height: 100%; object-fit: cover;">` : '📷'}
+                    </div>
+                    <div class="ad-content">
+                        <div class="ad-title">${ad.title}</div>
+                        <div class="ad-category">${getCategoryDisplayName(ad.category)}</div>
+                        <div class="ad-description">${ad.description}</div>
+                        <div class="ad-meta">
+                            <span>$${ad.price || 'Free'}</span>
+                            <span class="ad-status status-${ad.status}">${ad.status.charAt(0).toUpperCase() + ad.status.slice(1)}</span>
+                        </div>
+                        <div class="ad-actions">
+                            <button class="btn btn-secondary" onclick="viewAd(${ad.id})">View</button>
+                            <button class="btn btn-warning" onclick="editAd(${ad.id})">Edit</button>
+                            <button class="btn btn-danger" onclick="deleteAd(${ad.id})">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getCategoryDisplayName(category) {
+            const categoryNames = {
+                'fitness': 'Fitness & Health',
+                'sports': 'Sports & Recreation',
+                'wellness': 'Wellness & Spa',
+                'nutrition': 'Nutrition & Supplements',
+                'equipment': 'Equipment & Gear'
+            };
+            return categoryNames[category] || category;
+        }
+
+        function filterAds() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const categoryFilter = document.getElementById('categoryFilter').value;
+            const statusFilter = document.getElementById('statusFilter').value;
+
+            const filteredAds = ads.filter(ad => {
+                const matchesSearch = ad.title.toLowerCase().includes(searchTerm) || 
+                                   ad.description.toLowerCase().includes(searchTerm);
+                const matchesCategory = !categoryFilter || ad.category === categoryFilter;
+                const matchesStatus = !statusFilter || ad.status === statusFilter;
+
+                return matchesSearch && matchesCategory && matchesStatus;
+            });
+
+            renderAds(filteredAds);
+        }
+
+        function createNewAd() {
+            // Redirect to ad creation page
+            window.location.href = 'ad-creation.html';
+        }
+
+        function viewAd(adId) {
+            const ad = ads.find(a => a.id === adId);
+            if (ad) {
+                alert(`Viewing ad: ${ad.title}\n\nDescription: ${ad.description}\nCategory: ${getCategoryDisplayName(ad.category)}\nSubcategory: ${ad.subcategory}\nPrice: $${ad.price || 'Free'}\nStatus: ${ad.status}\nContact: ${ad.contactName} (${ad.contactPhone})\nEmail: ${ad.contactEmail}`);
+            }
+        }
+
+        function editAd(adId) {
+            const ad = ads.find(a => a.id === adId);
+            if (ad) {
+                showEditModal(ad);
+            }
+        }
+
+        function showEditModal(ad) {
+            const modal = document.getElementById('editModal');
+            const editForm = document.getElementById('editForm');
+
+            editForm.innerHTML = `
+                <form id="editAdForm">
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Ad Title</label>
+                        <input type="text" value="${ad.title}" id="editTitle" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Description</label>
+                        <textarea id="editDescription" rows="4" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">${ad.description}</textarea>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Price</label>
+                        <input type="number" value="${ad.price || ''}" id="editPrice" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Status</label>
+                        <select id="editStatus" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                            <option value="active" ${ad.status === 'active' ? 'selected' : ''}>Active</option>
+                            <option value="pending" ${ad.status === 'pending' ? 'selected' : ''}>Pending</option>
+                            <option value="expired" ${ad.status === 'expired' ? 'selected' : ''}>Expired</option>
+                        </select>
+                    </div>
+                    <div style="text-align: right; margin-top: 20px;">
+                        <button type="button" class="btn btn-secondary" onclick="closeEditModal()">Cancel</button>
+                        <button type="button" class="btn" onclick="saveAdChanges(${ad.id})">Save Changes</button>
+                    </div>
+                </form>
+            `;
+
+            modal.style.display = 'block';
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').style.display = 'none';
+        }
+
+        function saveAdChanges(adId) {
+            const ad = ads.find(a => a.id === adId);
+            if (ad) {
+                ad.title = document.getElementById('editTitle').value;
+                ad.description = document.getElementById('editDescription').value;
+                ad.price = parseFloat(document.getElementById('editPrice').value) || 0;
+                ad.status = document.getElementById('editStatus').value;
+
+                updateStats();
+                renderAds();
+                closeEditModal();
+                alert('Ad updated successfully!');
+            }
+        }
+
+        function deleteAd(adId) {
+            if (confirm('Are you sure you want to delete this ad? This action cannot be undone.')) {
+                ads = ads.filter(ad => ad.id !== adId);
+                updateStats();
+                renderAds();
+                alert('Ad deleted successfully!');
+            }
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('editModal');
+            if (event.target === modal) {
+                closeEditModal();
+            }
+        }
+    </script>
+</body>
+</html>
