@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Your Ad - Sohaib GYM</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .form-container {
+            padding: 40px;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+            padding: 25px;
+            border: 1px solid #e1e5e9;
+            border-radius: 10px;
+            background: #f8f9fa;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 10px 20px rgba(108, 117, 125, 0.3);
+        }
+
+        .preview-section {
+            background: #f8f9fa;
+            border: 2px dashed #667eea;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .preview-image {
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        .dynamic-fields {
+            margin-top: 15px;
+        }
+
+        .dynamic-field {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #e1e5e9;
+        }
+
+        .remove-field {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            float: right;
+        }
+
+        .add-field {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                margin: 10px;
+            }
+            
+            .form-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Create Your Ad</h1>
+            <p>Reach more customers with targeted advertising</p>
+        </div>
+
+        <div class="form-container">
+            <form id="adForm">
+                <!-- Basic Information Section -->
+                <div class="form-section">
+                    <h3 class="section-title">Basic Information</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="adTitle">Ad Title *</label>
+                            <input type="text" id="adTitle" class="form-control" required placeholder="Enter your ad title">
+                        </div>
+                        <div class="form-group">
+                            <label for="adType">Ad Type *</label>
+                            <select id="adType" class="form-control" required>
+                                <option value="">Select Ad Type</option>
+                                <option value="promotion">Promotion</option>
+                                <option value="event">Event</option>
+                                <option value="service">Service</option>
+                                <option value="product">Product</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="adDescription">Description *</label>
+                        <textarea id="adDescription" class="form-control" rows="4" required placeholder="Describe your ad in detail"></textarea>
+                    </div>
+                </div>
+
+                <!-- Category Selection Section -->
+                <div class="form-section">
+                    <h3 class="section-title">Category & Subcategory</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="mainCategory">Main Category *</label>
+                            <select id="mainCategory" class="form-control" required>
+                                <option value="">Select Category</option>
+                                <option value="fitness">Fitness & Health</option>
+                                <option value="sports">Sports & Recreation</option>
+                                <option value="wellness">Wellness & Spa</option>
+                                <option value="nutrition">Nutrition & Supplements</option>
+                                <option value="equipment">Equipment & Gear</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="subCategory">Subcategory *</label>
+                            <select id="subCategory" class="form-control" required>
+                                <option value="">Select Subcategory</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Specific Details Section -->
+                <div class="form-section">
+                    <h3 class="section-title">Specific Details</h3>
+                    <div id="specificDetails">
+                        <!-- Dynamic fields will be added here based on subcategory -->
+                    </div>
+                </div>
+
+                <!-- Media Section -->
+                <div class="form-section">
+                    <h3 class="section-title">Media & Images</h3>
+                    
+                    <div class="form-group">
+                        <label for="adImage">Upload Image</label>
+                        <input type="file" id="adImage" class="form-control" accept="image/*">
+                    </div>
+                    
+                    <div class="preview-section" id="imagePreview" style="display: none;">
+                        <h4>Image Preview</h4>
+                        <img id="previewImage" class="preview-image" alt="Preview">
+                    </div>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="form-section">
+                    <h3 class="section-title">Contact Information</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="contactName">Contact Name *</label>
+                            <input type="text" id="contactName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactPhone">Phone Number *</label>
+                            <input type="tel" id="contactPhone" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contactEmail">Email Address *</label>
+                        <input type="email" id="contactEmail" class="form-control" required>
+                    </div>
+                </div>
+
+                <!-- Pricing Section -->
+                <div class="form-section">
+                    <h3 class="section-title">Pricing & Duration</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="adPrice">Price (if applicable)</label>
+                            <input type="number" id="adPrice" class="form-control" placeholder="0.00" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="adDuration">Ad Duration (days) *</label>
+                            <select id="adDuration" class="form-control" required>
+                                <option value="">Select Duration</option>
+                                <option value="7">7 days</option>
+                                <option value="14">14 days</option>
+                                <option value="30">30 days</option>
+                                <option value="60">60 days</option>
+                                <option value="90">90 days</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Buttons -->
+                <div style="text-align: center; margin-top: 30px;">
+                    <button type="button" class="btn btn-secondary" onclick="previewAd()">Preview Ad</button>
+                    <button type="submit" class="btn">Submit Ad</button>
+                </div>
+
+                <!-- Messages -->
+                <div id="successMessage" class="success-message">
+                    Your ad has been successfully submitted! We'll review it and get back to you soon.
+                </div>
+                <div id="errorMessage" class="error-message">
+                    Please fill in all required fields.
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Category and subcategory mapping
+        const categoryMap = {
+            'fitness': [
+                'Personal Training',
+                'Group Classes',
+                'Cardio Training',
+                'Strength Training',
+                'Yoga & Pilates',
+                'CrossFit',
+                'Bodybuilding',
+                'Functional Training'
+            ],
+            'sports': [
+                'Swimming',
+                'Tennis',
+                'Basketball',
+                'Soccer',
+                'Boxing',
+                'Martial Arts',
+                'Rock Climbing',
+                'Racquet Sports'
+            ],
+            'wellness': [
+                'Massage Therapy',
+                'Spa Services',
+                'Meditation',
+                'Nutrition Counseling',
+                'Physical Therapy',
+                'Chiropractic',
+                'Acupuncture',
+                'Holistic Health'
+            ],
+            'nutrition': [
+                'Protein Supplements',
+                'Vitamins & Minerals',
+                'Pre-Workout',
+                'Post-Workout',
+                'Meal Plans',
+                'Dietary Supplements',
+                'Sports Nutrition',
+                'Weight Management'
+            ],
+            'equipment': [
+                'Cardio Equipment',
+                'Strength Equipment',
+                'Free Weights',
+                'Resistance Bands',
+                'Yoga Equipment',
+                'Sports Gear',
+                'Wearable Technology',
+                'Home Gym Equipment'
+            ]
+        };
+
+        // Specific fields for each subcategory
+        const subcategoryFields = {
+            'Personal Training': [
+                { name: 'experience', label: 'Years of Experience', type: 'number' },
+                { name: 'certifications', label: 'Certifications', type: 'text' },
+                { name: 'specialties', label: 'Specialties', type: 'text' },
+                { name: 'sessionLength', label: 'Session Length (minutes)', type: 'number' }
+            ],
+            'Group Classes': [
+                { name: 'classSize', label: 'Maximum Class Size', type: 'number' },
+                { name: 'classLevel', label: 'Class Level', type: 'select', options: ['Beginner', 'Intermediate', 'Advanced', 'All Levels'] },
+                { name: 'classSchedule', label: 'Class Schedule', type: 'text' }
+            ],
+            'Cardio Training': [
+                { name: 'equipment', label: 'Equipment Used', type: 'text' },
+                { name: 'intensity', label: 'Intensity Level', type: 'select', options: ['Low', 'Medium', 'High'] },
+                { name: 'duration', label: 'Session Duration (minutes)', type: 'number' }
+            ],
+            'Protein Supplements': [
+                { name: 'proteinType', label: 'Protein Type', type: 'select', options: ['Whey', 'Casein', 'Plant-based', 'Blend'] },
+                { name: 'servingSize', label: 'Serving Size (grams)', type: 'number' },
+                { name: 'flavors', label: 'Available Flavors', type: 'text' }
+            ],
+            'Cardio Equipment': [
+                { name: 'equipmentType', label: 'Equipment Type', type: 'select', options: ['Treadmill', 'Elliptical', 'Bike', 'Rower', 'StairMaster'] },
+                { name: 'brand', label: 'Brand', type: 'text' },
+                { name: 'condition', label: 'Condition', type: 'select', options: ['New', 'Like New', 'Good', 'Fair'] }
+            ]
+        };
+
+        // Initialize the form
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up category change handler
+            document.getElementById('mainCategory').addEventListener('change', function() {
+                updateSubcategories();
+            });
+
+            // Set up subcategory change handler
+            document.getElementById('subCategory').addEventListener('change', function() {
+                updateSpecificFields();
+            });
+
+            // Set up image preview
+            document.getElementById('adImage').addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        document.getElementById('previewImage').src = e.target.result;
+                        document.getElementById('imagePreview').style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Set up form submission
+            document.getElementById('adForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                submitAd();
+            });
+        });
+
+        function updateSubcategories() {
+            const mainCategory = document.getElementById('mainCategory').value;
+            const subCategorySelect = document.getElementById('subCategory');
+            
+            // Clear existing options
+            subCategorySelect.innerHTML = '<option value="">Select Subcategory</option>';
+            
+            if (mainCategory && categoryMap[mainCategory]) {
+                categoryMap[mainCategory].forEach(subcategory => {
+                    const option = document.createElement('option');
+                    option.value = subcategory;
+                    option.textContent = subcategory;
+                    subCategorySelect.appendChild(option);
+                });
+            }
+        }
+
+        function updateSpecificFields() {
+            const subcategory = document.getElementById('subCategory').value;
+            const specificDetailsDiv = document.getElementById('specificDetails');
+            
+            // Clear existing fields
+            specificDetailsDiv.innerHTML = '';
+            
+            if (subcategory && subcategoryFields[subcategory]) {
+                subcategoryFields[subcategory].forEach(field => {
+                    const fieldDiv = document.createElement('div');
+                    fieldDiv.className = 'form-group';
+                    
+                    const label = document.createElement('label');
+                    label.textContent = field.label;
+                    label.setAttribute('for', field.name);
+                    
+                    let input;
+                    if (field.type === 'select') {
+                        input = document.createElement('select');
+                        input.className = 'form-control';
+                        input.id = field.name;
+                        
+                        const defaultOption = document.createElement('option');
+                        defaultOption.value = '';
+                        defaultOption.textContent = `Select ${field.label}`;
+                        input.appendChild(defaultOption);
+                        
+                        field.options.forEach(option => {
+                            const optionElement = document.createElement('option');
+                            optionElement.value = option;
+                            optionElement.textContent = option;
+                            input.appendChild(optionElement);
+                        });
+                    } else {
+                        input = document.createElement('input');
+                        input.type = field.type;
+                        input.className = 'form-control';
+                        input.id = field.name;
+                        input.placeholder = `Enter ${field.label.toLowerCase()}`;
+                    }
+                    
+                    fieldDiv.appendChild(label);
+                    fieldDiv.appendChild(input);
+                    specificDetailsDiv.appendChild(fieldDiv);
+                });
+            }
+        }
+
+        function previewAd() {
+            // Collect form data
+            const formData = new FormData(document.getElementById('adForm'));
+            const adData = {};
+            
+            for (let [key, value] of formData.entries()) {
+                adData[key] = value;
+            }
+            
+            // Show preview (you can implement a modal or new page for this)
+            alert('Preview functionality would show a preview of your ad here. Form data collected: ' + JSON.stringify(adData, null, 2));
+        }
+
+        function submitAd() {
+            // Validate form
+            const form = document.getElementById('adForm');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+            
+            // Collect form data
+            const formData = new FormData(form);
+            const adData = {};
+            
+            for (let [key, value] of formData.entries()) {
+                adData[key] = value;
+            }
+            
+            // Simulate form submission
+            console.log('Ad data to be submitted:', adData);
+            
+            // Show success message
+            document.getElementById('successMessage').style.display = 'block';
+            document.getElementById('errorMessage').style.display = 'none';
+            
+            // Reset form after a delay
+            setTimeout(() => {
+                form.reset();
+                document.getElementById('imagePreview').style.display = 'none';
+                document.getElementById('specificDetails').innerHTML = '';
+                document.getElementById('successMessage').style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
